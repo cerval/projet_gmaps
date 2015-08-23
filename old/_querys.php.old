@@ -1,0 +1,192 @@
+<?php 
+session_start();
+include_once("../../langues/fr.php");
+include_once("../../config/config.php");
+include_once("../../config/functions.php");
+connect();
+
+$query = trim($_POST['q']);
+
+switch($query){
+/*
+case "addBookmark":
+  $itemID = $_POST['item'];
+        
+  $sel = "SELECT bID FROM _bookmarks WHERE bItemID='".$itemID."' AND bUserID='".$_SESSION['id']."'";
+  $res = mysql_query($sel);
+  if(mysql_num_rows($res)==0){
+  
+    $sql = "INSERT INTO _bookmarks ( ";
+    $sql .= "           bItemID, ";
+    $sql .= "           bUserID ";
+    $sql .= " ) VALUES ( ";
+    $sql .= "           '".$itemID."', ";
+    $sql .= "           '".$_SESSION['id']."' ";
+    $sql .= " )";
+    mysql_query($sql);
+    //echo $sql;
+    echo 0;
+  }else{
+    echo 1;
+  }
+
+break;
+*/
+/*
+    case "selectCategories";
+    
+      $val_categorie = $_POST['cat'];
+
+      $sql = "SELECT  cID, ";
+      //$sql .= "       cParent, ";
+      $sql .= "       cName, ";
+      $sql .= "       cColor, ";
+      $sql .= "       cIcon ";
+      $sql .= " FROM _categories WHERE cID=".$val_categorie;
+      $res = mysql_query($sql);
+      $val = mysql_fetch_object($res);
+      
+      $arrCategories[] = Array(
+                          "id"		=> $val->cID,
+                          "name"	=> constant($val->cName),
+                          "color"   => $val->cColor,
+                          "icon"    => $val->cIcon
+                        );
+      
+      echo json_encode($arrCategories);
+    break;
+    */
+  /*
+    case "insertItem":
+
+        $rCategoriesID 	= trim($_POST['cat']);
+        $rLatitude				= trim($_POST['lat']);
+        $rLongitude			= trim($_POST['lng']);        
+        $rTitle					= addslashes(trim($_POST['ttl']));
+        $rComment			= addslashes(trim($_POST['com']));
+
+        $sql = "INSERT INTO _items ( ";
+        $sql .= "           iUserID, ";
+        $sql .= "           iCategoriesID, ";
+        $sql .= "           iTitle, ";
+        $sql .= "           iComment, ";
+        $sql .= "           iLatitude, ";
+        $sql .= "           iLongitude, ";
+        $sql .= "           iCreated, ";
+        $sql .= "           iEnable ";
+        $sql .= " ) VALUES ( ";
+        $sql .= "           '".$_SESSION['id']."', ";
+        $sql .= "           '".$rCategoriesID."', ";
+        $sql .= "           '".$rTitle."', ";
+        $sql .= "           '".$rComment."', ";
+        $sql .= "           '".$rLatitude."', ";
+        $sql .= "           '".$rLongitude."', ";
+        $sql .= "           CURRENT_TIMESTAMP , ";
+        $sql .= "           '1'";
+        $sql .= " )";
+        mysql_query($sql);
+        //echo $sql;
+
+    break;
+	*/
+/*
+	case "updateCategories":
+
+        $uCategories	= trim($_POST['cat']);
+		$uTraffic			= trim($_POST['trf']);
+		$uMapType		= trim($_POST['map']);
+
+        $sql = "UPDATE _users ";
+		$sql .= " SET uCategories = '".$uCategories."',  ";
+		$sql .= "  		uTraffic = '".$uTraffic."',  ";
+		$sql .= " 		uMapType = '".$uMapType."'  ";
+		$sql .= " WHERE uID = ".$_SESSION['id'];
+        mysql_query($sql);
+        //echo $sql;
+		$_SESSION["categories"]	=	$uCategories;
+		$_SESSION["traffic"]	=	$uTraffic;
+		$_SESSION["maptype"]	=	$uMapType;
+		
+    break;
+*/
+    /*
+    case "loadItems":
+
+        $nbItems   = 2; 
+        $limit     = trim($_POST['page']);
+        $type      = trim($_POST['type']);
+        $limitItems= ($limit*$nbItems);
+        $next      = ($limit+1);
+        
+
+      if($type==0){// ALL ITEMS
+        $sql = "SELECT * FROM _items WHERE iEnable=1 ORDER BY iCreated DESC LIMIT ".$limitItems.", ".$nbItems;
+      }else{// ONLY BOOKMARKS
+        $sql = "SELECT * FROM _items, _bookmarks WHERE bItemID=iID AND bUserID='".$_SESSION['id']."' AND iEnable=1 ORDER BY iCreated DESC LIMIT ".$limitItems.", ".$nbItems;
+      }
+
+        //echo $sql;
+        $res = mysql_query($sql);
+
+        if(mysql_num_rows($res)>0){
+          while($val = mysql_fetch_object($res)){	
+        		$date = date_create($val->iCreated);
+            ?>
+        		<div id="reference" class="refItems">
+        			
+        			<div id="refItemHeader">
+        				<div id="refItemHeaderTitle">
+        					<img src="images/maps/<?php echo rtvIconByCategoriesID($val->iCategoriesID); ?>" width="20" />
+                  &nbsp;
+                  <span class="itemTitle"><?php echo $val->iTitle; ?></span>
+        				</div>
+        				<div id="refItemHeaderUserAndDate">
+        					<span style="margin-top:2px;"><img src="images/status_online.png" /></span>&nbsp;<?php echo rtvLoginByID($val->iUserID); ?>&nbsp;
+        					<span style=""><img src="images/calendar.png" /></span>&nbsp;<?php echo date_format($date, constant("_LNG_DATE_FORMAT_")); ?>
+        				</div>
+        			</div>
+        			
+              <div id="refItemComment" style="border-left: 10px solid  <?php echo rtvColorByCategoriesID($val->iCategoriesID); ?>;">
+                <div id="itemcolor"></div>
+                <div id="itemComment"><div id="refItemCommentText"><?php echo $val->iComment; ?></div></div>
+        			</div>
+        			
+              <div id="refItemFooter">
+              <div data-role="navbar" data-iconpos="left">
+                <ul>
+                <?php
+                if($type==0){// TOUS
+                  ?>
+                  <li><a href="#" data-icon="heart" onclick="javascript:jsAddToBookmark(<?php echo $val->iID; ?>)">ADD TO FAVORITE</a></li>
+                  <?php
+                }else{
+                  ?>
+                  <li><a href="#" data-icon="heart" onclick="javascript:jsRemoveToBookmark(<?php echo $val->iID; ?>)">REMOVE TO FAVORITE</a></li>
+                  <?php
+                }
+                ?>
+                <li><a href="#" data-icon="eye">VOIR LA PAGE</a></li>
+                </ul>
+              </div><!-- /navbar -->
+        			</div>
+        		</div>
+            <?php    	
+            }
+            if($type==0){// TOUS
+              echo "<div id='itemsAllContent_".($next)."'><a href='#' onclick='javascript:jsLoadItems(".$next.", ".$type.");'  data-role='button' data-icon='recycle' data-mini='true'>Charger les prochains items</a></div>";
+            }else{// ONLY BOOKMARKS
+              echo "<div id='itemsMyContent_".($next)."'><a href='#' onclick='javascript:jsLoadItems(".$next.", ".$type.");'  data-role='button' data-icon='recycle' data-mini='true'>Charger les prochains favoris</a></div>";
+            }
+          }else{
+            ?>
+            <div id="reference" class="refItems">
+              Pas de données à afficher...
+            </div>
+            <?php
+          }
+         
+ break;*/
+}
+
+@close();
+?>

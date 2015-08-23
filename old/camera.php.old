@@ -1,0 +1,13 @@
+<!-- content -->
+<div data-role="content" style="margin: 0;padding: 0;">
+		<div id="myCameraContent">
+			<h1>Ma photo</h1>
+			<h1>Fichier image : accès à l’appareil photo</h1>
+			<input type="file" name="image" accept="image/*" capture>
+			<input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput">
+
+			<h1>Fichier vidéo : accès à la camera</h1>
+			<input type="file" name="video" accept="video/*" capture>
+		</div>
+</div>
+<!-- /content -->

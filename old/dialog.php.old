@@ -1,0 +1,49 @@
+<!-- page : DIALOG -->
+<?php 
+include_once("../../langues/fr.php");
+include_once("../../config/config.php");
+connect();
+$val_type = $_POST['t'];
+
+$sql = "SELECT * FROM _types WHERE tID=".$val_type;
+$res = mysql_query($sql);
+$val = mysql_fetch_object($res);
+?>
+<div data-role="header" data-theme="b">
+	<h1><?php echo constant("_LNG_ADD_"); ?> : <?php echo constant($val->tName); ?></h1>
+</div>
+
+<div data-role="content" data-theme="c" style="width:400px;padding:10px;">
+	
+	<table style="width:400px;">
+		<tr>
+			<td valign="top" width="35" rowspan="3">
+				<img src="images/maps/<?php echo $val->tIcon; ?>" />
+			</td>
+			<td>
+				<label for="dialogTitle"><?php echo constant("_LNG_TITLE_"); ?>:</label>
+				<input type="text" name="dialogTitle" id="dialogTitle" value="" data-mini="true" data-theme="a" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="dialogComment"><?php echo constant("_LNG_COMMENT_"); ?>:</label>
+				<textarea name="dialogComment" id="dialogComment" data-theme="a"></textarea>
+			</td>
+		</tr>	
+		<tr>
+			<td>
+				<label for="dialogPosition"><?php echo constant("_LNG_INFO_POSITION_"); ?>:</label>
+				<input type="text" name="dialogLatitude" id="dialogLatitude" value="" data-mini="true"  data-theme="a"/>
+                                <input type="text" name="dialogLongitude" id="dialogLongitude" value="" data-mini="true"  data-theme="a"/>
+			</td>
+		</tr>			
+	</table>
+	
+	<a href="#" onclick="javascript:insertReference(<?php echo $val->tID; ?>);" data-role="button" data-rel="back" data-theme="b"><?php echo constant("_LNG_ADD_"); ?></a>       
+	<a href="#" data-role="button" data-rel="back" data-theme="a"><?php echo constant("_LNG_CANCEL_"); ?></a>
+</div>
+<!-- /page : DIALOG -->
+<?php
+@close();
+?>

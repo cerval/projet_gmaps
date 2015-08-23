@@ -1,0 +1,52 @@
+<!-- page : DIALOG -->
+<?php 
+include_once("../langues/FRA.php");
+
+switch($_POST['t']){
+	case 1: // référence bar
+		$image = "bar.png";
+		$titre = constant("_LNG_ADD_REF_BAR_");
+	break;
+	case 2: // référence boite
+		$image = "disco.png";
+		$titre = constant("_LNG_ADD_REF_DISCO_");
+	break;
+	case 3: // référence restaurant
+		$image = "restaurant.png";
+		$titre = constant("_LNG_ADD_REF_RESTAURANT_");
+	break;
+	case 4: // référence musée
+		$image = "museum.png";
+		$titre = constant("_LNG_ADD_REF_MUSEUM_");
+	break;
+	case 5: // référence autre
+		$image = "other.png";
+		$titre = constant("_LNG_ADD_REF_OTHER_");
+	break;
+	case 6: // notes public
+		$image = "note.png";
+		$titre = constant("_LNG_ADD_NOTE_PUBLIC_");
+	break;
+	case 7: // notes private
+		$image = "note2.png";
+		$titre = constant("_LNG_ADD_NOTE_PRIVATE_");
+	break;
+}
+?>
+<div data-role="header" data-theme="b">
+	<h1><?php echo $titre; ?></h1>
+</div>
+
+<div data-role="content" data-theme="c">
+	
+	<table width="100%">
+		<tr>
+			<td valign="top" width="35"><img src="images/maps/<?php echo $image; ?>" /></td>
+			<td></td>
+		</tr>
+	</table>
+	
+	<a href="docs-dialogs.html" data-role="button" data-rel="back" data-theme="b">Sounds good</a>       
+	<a href="docs-dialogs.html" data-role="button" data-rel="back" data-theme="a">Cancel</a>    
+</div>
+<!-- /page : DIALOG -->

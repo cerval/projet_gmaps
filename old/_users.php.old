@@ -1,0 +1,97 @@
+<?php
+// Start the session
+session_start();
+include_once("../../config/config.php");
+connect();
+
+$act = $_POST['act'];
+
+switch($act){
+    case "logIN":
+        
+        $log = $_POST['log'];
+        $pwd = $_POST['pwd'];
+        
+        // Set session variables
+        $sql = "SELECT uID, uLogin, uCategories,uTraffic,uMapType, uEnable FROM _users WHERE uPasswd='".$pwd."' AND uLogin='".$log."'";
+        //echo $sql;
+        $res = mysql_query($sql);
+        $val = mysql_fetch_object($res);
+
+        if(mysql_num_rows($res)>0){
+            if($val->uEnable==1){
+                $_SESSION["sid"]    = session_id();
+                $_SESSION["id"]     = $val->uID;
+                $_SESSION["login"]  = $val->uLogin;
+				$_SESSION["categories"]	=	$val->uCategories;
+				$_SESSION["traffic"]	=	$val->uTraffic;
+				$_SESSION["maptype"]	=	$val->uMapType;
+                $_SESSION["enable"] = $val->uEnable;
+                //echo "Variables de sessions définies.";
+                echo "0";
+            }else{
+                //echo "Le compte est inactif...";
+                echo "1";
+            }
+        }else{
+            //echo "Nom ou mot de passe invalide...";
+            echo "2";
+        }
+    break;
+    case "logOUT":
+        //@session_unset(); // remove all session variables
+        // Détruit toutes les variables de session
+        session_unset();
+        session_destroy(); // destroy the session 
+        echo "0";
+    break;
+	
+	case "create":
+		$log = $_POST['log'];
+        $pwd = $_POST['pwd'];
+		$mail = $_POST['mail'];
+		$categories = "";
+		
+		 // Set session variables
+        $sql = "SELECT uID FROM _users WHERE uLogin='".$log."' OR uMail='".$mail."'";
+		//echo $sql;
+        $res = mysql_query($sql);
+		$nbRows = mysql_num_rows($res);
+		if($nbRows>0){
+			// Nom d'utilisateur et/ou email déjà existant dans la BDD
+			echo "1";
+		}else{
+			
+			// ON récupère les types de références active et on les insère par défaut comme active dans les options de l'utilisateur
+			$sql = "SELECT cID FROM _categories WHERE cParent!='0' AND cEnable='1'";
+			$res = mysql_query($sql);
+			while($val = mysql_num_rows($res)){
+			$categories .= $val->cID.","; // Concaténation des valeurs stockés dans un seul champ
+			}
+			$categories = substr($categories, 0, -1);// On supprime le dernier caractère de la chaine " , "
+			
+			$insertSQL = "INSERT INTO  _users ( ";
+			$insertSQL .= "						uLogin , ";
+			$insertSQL .= "						uPasswd , ";
+			$insertSQL .= "						uMail , ";
+			$insertSQL .= "						uCategories , ";	
+			$insertSQL .= "						uCreated , ";
+			$insertSQL .= "						uEnable ";
+			$insertSQL .= " )  VALUES ( ";
+			$insertSQL .= "						'".$log."',  ";
+			$insertSQL .= "						SHA1(  '".$pwd."' ) ,  ";
+			$insertSQL .= "						'".$mail."',  ";
+			$insertSQL .= "						'".$categories."',  ";
+			$insertSQL .= "						CURRENT_TIMESTAMP ,  ";
+			$insertSQL .= "						'1' ";
+			$insertSQL .= ")";
+			mysql_query($insertSQL);
+			//echo $insertSQL;
+			echo "0";
+		}
+
+    break;
+}
+
+@close();
+?>

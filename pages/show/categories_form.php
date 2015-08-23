@@ -1,0 +1,50 @@
+<!-- content -->
+<div data-role="header" data-theme="b">
+  <h1><?php echo constant("_LNG_ADD_"); ?> : <p class="showElement" id="dialogHeader"></p></h1>
+   <a href="#" data-icon="false" data-iconpos="none" data-role="none"></a>
+  <a href="#" class="ui-nodisc-icon" data-icon="cancel-back" data-iconpos="notext" data-rel="back" title="<?php echo constant("_LNG_CANCEL_"); ?>"><?php echo constant("_LNG_CANCEL_"); ?></a>
+</div>
+
+<div data-role="content" data-theme="c">
+  <form name="createReferenceForm" id="createReferenceForm" action="#">
+	<table style="width:100%;">
+		<tr>
+			<td valign="top" width="35" rowspan="4">
+              <p class="showElement" id="dialogIcon"></p>
+              <input type="hidden" id="dialogType" value="" />
+			</td>
+			<td colspan="2">
+				<label for="dialogTitle"><?php echo constant("_LNG_TITLE_"); ?>:</label>
+				<input type="text" name="dialogTitle" id="dialogTitle" value="" data-mini="true" data-theme="a" />
+			</td>
+		</tr>
+        
+		<tr>
+			<td colspan="2">
+				<label for="dialogComment"><?php echo constant("_LNG_COMMENT_"); ?>:</label>
+				<textarea name="dialogComment" id="dialogComment" data-theme="a"></textarea>
+			</td>
+		</tr>
+        
+		<tr>
+			<td colspan="2">
+				<label for="dialogPosition"><?php echo constant("_LNG_INFO_POSITION_"); ?>:</label>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+              <input type="text" name="dialogLatitude" id="dialogLatitude" value="" data-mini="true"  data-theme="a"/>              
+			</td>
+            <td>
+              <input type="text" name="dialogLongitude" id="dialogLongitude" value="" data-mini="true"  data-theme="a"/>
+            </td>
+		</tr>			
+	</table>
+	
+	<input type="submit" onclick="javascript:jsAddItem();" data-role="button" data-icon="check" data-rel="close" data-theme="c" value="<?php echo constant("_LNG_ADD_"); ?>" />
+    <!--<a href="#" data-role="button" data-rel="back" data-theme="b" onclick="javascript:jsInsertReference();" ><?php //echo constant("_LNG_ADD_"); ?></a>-->
+    <!--<a href="#" data-role="button" data-rel="back" data-theme="a"><?php //echo constant("_LNG_CANCEL_"); ?></a>-->
+  </form>
+</div>
+<!-- /content -->

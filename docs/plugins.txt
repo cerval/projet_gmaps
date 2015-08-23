@@ -1,0 +1,6 @@
+*******************************
+* jQuery PLugins
+*******************************
+
+Notation : jRate
+url : http://www.toolitup.com/jRate.html

@@ -1,0 +1,84 @@
+/*********************************************************
+* Table : _bookmarks
+*********************************************************/
+- id				(integer)
+- idUser		(integer)
+- idItem		(integer)
+- created	(timestamp) > DEFAUT : CURRENT_TIMESTAMP
+- enable		(boolean)	> DEFAUT : 1
+
+/*********************************************************
+* Table : _comments
+*********************************************************/
+- id 			(integer)
+- idUser		(integer)
+- idItem		(integer)
+- comment		(varchar)
+- created			(timestamp) > DEFAUT : CURRENT_TIMESTAMP
+- enable		(boolean)	> DEFAUT : 1
+
+/*********************************************************
+* Table : _items
+*********************************************************/
+- id 			(integer)
+- idUser		(integer)
+- idCategorie	(integer)
+- title			(varchar)
+- description	(longtext)
+- position 		(varchar)	(latitude, longitude)
+- created		(timestamp) > DEFAUT : CURRENT_TIMESTAMP	
+- enable 		(boolean)	> DEFAUT : 1
+
+/*********************************************************
+* Table : _links
+*********************************************************/
+- id			(integer)
+- idUser		(integer)
+- idItem	 	(integer)
+- title			(varchar)
+- comment		(longtext)
+- favorite		(boolean)	(oui/non)
+- note 			(enum)		(1 à 5)
+- created		(timestamp) > DEFAUT : CURRENT_TIMESTAMP	
+- enable 		(boolean)	> DEFAUT : 1
+
+/*********************************************************
+* Table : _medias
+*********************************************************/
+- id			(integer)
+- idUser		(integer)
+- idItem		(integer)
+- name			(varchar)
+- created		(timestamp) > DEFAUT : CURRENT_TIMESTAMP	
+- enable		(boolean)	> DEFAUT : 1
+
+/*********************************************************
+* Table : _notes
+*********************************************************/
+- id 			(integer)
+- idUser		(integer)
+- idItem		(integer)
+- note			(tinyint)
+- created		(timestamp) > DEFAUT : CURRENT_TIMESTAMP
+- enable		(boolean)	> DEFAUT : 1
+
+/*********************************************************
+* Table : _types
+*********************************************************/
+- id			(integer)
+- parent		(integer)
+- name			(varchar)
+- color			(varchar)	(css color)
+- icon			(varchar)	(image_name)
+- created		(timestamp) > DEFAUT : CURRENT_TIMESTAMP	
+- enable 		(boolean)	> DEFAUT : 1
+
+/*********************************************************
+* Table : _users
+*********************************************************/
+- id 			(integer)
+- login 		(varchar)
+- passwd 		(varchar)	(SHA1)
+- mail 			(varchar)
+- created		(timestamp) > DEFAUT : CURRENT_TIMESTAMP	
+- enable 		(boolean)	> DEFAUT : 1

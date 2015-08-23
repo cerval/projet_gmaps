@@ -1,0 +1,33 @@
+<!-- content -->
+<div data-role="content" style="margin: 0;padding: 0;">
+		<div id="myBugsContent">
+			<h1>Soumettre un bug</h1>
+			<p>Afin de nous permettre d'améliorer continuellement cette application, merci de bien vouloir nous remonter tous problèmes rencontrés.</p>
+			<br>
+			<fieldset>
+				<legend>Soumettre un bug:</legend>
+					<table>
+					<tr>
+						<td>Type de problème:</td>
+						<td><select></select></td>
+					</tr>
+					<tr>
+						<td>Titre:</td>
+						<td><select></select></td>
+					</tr>
+					<tr>
+						<td>Résumé du problème:</td>
+						<td><select></select></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="button"></td>
+					</tr>
+				</table>
+			</fieldset>
+			<br>
+			<h1>Bugs en cours de résolution:</h1>
+			<a href="docs-dialogs.html" data-role="button" data-rel="back" data-theme="b">Envoyer</a>       
+			<a href="#" data-role="button" data-rel="back" data-theme="c">Annuler</a>    
+		</div>
+</div>
+<!-- /content -->
